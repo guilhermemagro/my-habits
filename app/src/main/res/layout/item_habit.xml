@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="habit"
+            type="com.guilhermemagro.myhabits.data.Habit" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/status_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/margin_normal"
+            android:src="@{habit.done ? @drawable/ic_baseline_check_circle_24 : @drawable/ic_baseline_remove_circle_outline_24}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_baseline_check_circle_24" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/habit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:text="@{habit.description}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintBottom_toBottomOf="@id/status_image"
+            app:layout_constraintStart_toEndOf="@+id/status_image"
+            app:layout_constraintTop_toTopOf="@+id/status_image"
+            tools:text="Escovar os dentes" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

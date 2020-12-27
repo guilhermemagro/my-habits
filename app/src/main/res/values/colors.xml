@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="primaryColor">#0f3057</color>
+    <color name="primaryLightColor">#415984</color>
+    <color name="primaryDarkColor">#00062e</color>
+    <color name="secondaryColor">#00587a</color>
+    <color name="secondaryLightColor">#4685a9</color>
+    <color name="secondaryDarkColor">#002f4e</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="done_habit">#9ccc65</color>
+    <color name="not_done_habit">#ef5350</color>
 </resources>
