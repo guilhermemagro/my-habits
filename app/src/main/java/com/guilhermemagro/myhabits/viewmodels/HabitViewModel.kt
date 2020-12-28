@@ -17,6 +17,11 @@ class HabitViewModel(
     fun insertHabit(habit: Habit) = viewModelScope.launch {
             habitRepository.insertHabit(habit)
     }
+
+    fun setHabitDone(habit: Habit) = viewModelScope.launch {
+        habit.isDone = !habit.isDone
+        habitRepository.updateHabit(habit)
+    }
 }
 
 class HabitViewModelFactory(private val repository: HabitRepository) : ViewModelProvider.Factory {

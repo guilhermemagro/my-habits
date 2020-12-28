@@ -1,10 +1,7 @@
 package com.guilhermemagro.myhabits.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface HabitDao {
@@ -13,6 +10,9 @@ interface HabitDao {
 
     @Insert
     suspend fun insert(habit: Habit)
+
+    @Update
+    suspend fun update(habit: Habit)
 
     @Delete
     fun delete(habit: Habit)

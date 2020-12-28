@@ -8,10 +8,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.guilhermemagro.myhabits.data.Habit
 import com.guilhermemagro.myhabits.databinding.ItemHabitBinding
+import com.guilhermemagro.myhabits.viewmodels.HabitViewModel
 
 class HabitAdapter(
     lifecycle: LifecycleOwner,
-    private val allHabits: LiveData<List<Habit>>
+    private val allHabits: LiveData<List<Habit>>,
+    private val viewModel: HabitViewModel,
 ) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
     init {
@@ -23,7 +25,7 @@ class HabitAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemBinding = ItemHabitBinding.inflate(layoutInflater, parent, false)
-        return HabitViewHolder(itemBinding)
+        return HabitViewHolder(itemBinding, viewModel)
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
@@ -36,9 +38,11 @@ class HabitAdapter(
         return allHabits.value?.size ?: 0
     }
 
-    class HabitViewHolder(private var binding: ItemHabitBinding): RecyclerView.ViewHolder(binding.root) {
+    class HabitViewHolder(private var binding: ItemHabitBinding, private val viewModel: HabitViewModel)
+        : RecyclerView.ViewHolder(binding.root) {
         fun bind(habit: Habit) {
             binding.habit = habit
+            binding.viewModel = viewModel
             binding.executePendingBindings()
         }
     }

@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
         habitRepository = InjectorUtils.getHabitRepository(this)
         setupRecyclerView()
     }
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
 
-        val adapter = HabitAdapter(this, habitViewModel.allHabits)
+        val adapter = HabitAdapter(this, habitViewModel.allHabits, habitViewModel)
         recyclerView.adapter = adapter
     }
 

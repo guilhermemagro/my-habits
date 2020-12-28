@@ -2,9 +2,11 @@ package com.guilhermemagro.myhabits.data
 
 class HabitRepository private constructor(private val habitDao: HabitDao) {
 
+    fun getHabits() = habitDao.getAllHabits()
+
     suspend fun insertHabit(habit: Habit) = habitDao.insert(habit)
 
-    fun getHabits() = habitDao.getAllHabits()
+    suspend fun updateHabit(habit: Habit) = habitDao.update(habit)
 
     fun deleteHabit(habit: Habit) = habitDao.delete(habit)
 

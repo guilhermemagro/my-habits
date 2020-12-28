@@ -7,6 +7,9 @@
         <variable
             name="habit"
             type="com.guilhermemagro.myhabits.data.Habit" />
+        <variable
+            name="viewModel"
+            type="com.guilhermemagro.myhabits.viewmodels.HabitViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +24,7 @@
             android:src="@{habit.done ? @drawable/ic_baseline_check_circle_24 : @drawable/ic_baseline_remove_circle_outline_24}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{() -> viewModel.setHabitDone(habit)}"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_baseline_check_circle_24" />
 
