@@ -5,8 +5,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.guilhermemagro.myhabits.R
 import com.guilhermemagro.myhabits.adapters.HabitAdapter
@@ -35,12 +34,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
+        val linearLayoutManager = LinearLayoutManager(this)
+        val habitAdapter = HabitAdapter(this, habitViewModel.allHabits, habitViewModel)
         val recyclerView = binding.habitsRecyclerview
-        val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
-
-        val adapter = HabitAdapter(this, habitViewModel.allHabits, habitViewModel)
-        recyclerView.adapter = adapter
+        with(recyclerView) {
+            layoutManager = linearLayoutManager
+            addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
+            adapter = habitAdapter
+        }
     }
 
     fun insertHabit(view: View) {

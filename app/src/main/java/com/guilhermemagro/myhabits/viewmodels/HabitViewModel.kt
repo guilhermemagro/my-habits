@@ -22,6 +22,10 @@ class HabitViewModel(
         habit.isDone = !habit.isDone
         habitRepository.updateHabit(habit)
     }
+
+    fun deleteHabit(habit: Habit) = viewModelScope.launch {
+        habitRepository.deleteHabit(habit)
+    }
 }
 
 class HabitViewModelFactory(private val repository: HabitRepository) : ViewModelProvider.Factory {

@@ -8,7 +8,7 @@ class HabitRepository private constructor(private val habitDao: HabitDao) {
 
     suspend fun updateHabit(habit: Habit) = habitDao.update(habit)
 
-    fun deleteHabit(habit: Habit) = habitDao.delete(habit)
+    suspend fun deleteHabit(habit: Habit) = habitDao.delete(habit)
 
     companion object {
         @Volatile private var instance: HabitRepository? = null
