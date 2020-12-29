@@ -15,6 +15,7 @@ import com.guilhermemagro.myhabits.databinding.ActivityMainBinding
 import com.guilhermemagro.myhabits.utilities.InjectorUtils
 import com.guilhermemagro.myhabits.viewmodels.HabitViewModel
 import com.guilhermemagro.myhabits.viewmodels.HabitViewModelFactory
+import com.guilhermemagro.myhabits.views.dialogs.AddHabitDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,9 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun insertHabit(view: View) {
-        val habit = Habit(binding.habitNameEdt.text.toString())
-        habitViewModel.insertHabit(habit)
-        binding.habitNameEdt.text?.clear()
+    fun showAddHabitDialog(view: View) {
+        AddHabitDialog(habitViewModel).show(supportFragmentManager, "addHabitDialog")
     }
 }

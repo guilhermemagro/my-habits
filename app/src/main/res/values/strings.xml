@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Habits</string>
+
+    <!-- Add Habit Dialog -->
+    <string name="add_habit_title">Adicionar hábito</string>
+    <string name="add_habit_dscpt">Descrição do hábito</string>
+    <string name="add_habit_confirm_button">Adicionar</string>
+    <string name="add_habit_cancel_button">Cancelar</string>
 </resources>

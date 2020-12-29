@@ -14,26 +14,6 @@
         android:layout_height="match_parent"
         tools:context=".views.MainActivity">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/habit_name_edt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            android:hint="Escreva o hábito"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            android:onClick="insertHabit"
-            android:text="Adicionar Hábito"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/habit_name_edt" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/habits_recyclerview"
             android:layout_width="0dp"
@@ -42,8 +22,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_button"
+            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_habit" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:id="@+id/fab"
+            android:layout_margin="@dimen/margin_large"
+            android:layout_height="wrap_content"
+            android:onClick="showAddHabitDialog"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

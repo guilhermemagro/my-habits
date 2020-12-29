@@ -22,12 +22,12 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="@dimen/margin_normal"
-            android:src="@{habit.done ? @drawable/ic_baseline_check_circle_24 : @drawable/ic_baseline_remove_circle_outline_24}"
+            android:src="@{habit.done ? @drawable/ic_done : @drawable/ic_undone}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:onClick="@{() -> viewModel.setHabitDone(habit)}"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_baseline_check_circle_24" />
+            tools:src="@drawable/ic_done" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/habit_text"
