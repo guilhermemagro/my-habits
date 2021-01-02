@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="habit"
             type="com.guilhermemagro.myhabits.data.Habit" />
+
         <variable
             name="viewModel"
             type="com.guilhermemagro.myhabits.viewmodels.HabitViewModel" />
@@ -15,17 +17,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onLongClick="@{() -> viewModel.deleteHabit(habit)}" >
+        android:onClick="@{() -> viewModel.setHabitDone(habit)}"
+        android:onLongClick="@{() -> viewModel.deleteHabit(habit)}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/status_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_margin="@dimen/margin_normal"
             android:src="@{habit.done ? @drawable/ic_done : @drawable/ic_undone}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{() -> viewModel.setHabitDone(habit)}"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_done" />
 
@@ -33,9 +35,9 @@
             android:id="@+id/habit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_large"
             android:text="@{habit.description}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintBottom_toBottomOf="@id/status_image"
             app:layout_constraintStart_toEndOf="@+id/status_image"
             app:layout_constraintTop_toTopOf="@+id/status_image"
