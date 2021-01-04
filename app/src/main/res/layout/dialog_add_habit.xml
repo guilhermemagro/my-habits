@@ -8,7 +8,7 @@
         android:id="@+id/add_habit_edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_normal"
+        android:layout_margin="@dimen/margin_extra_large"
         android:hint="@string/add_habit_dscpt" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

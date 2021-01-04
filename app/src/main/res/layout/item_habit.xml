@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="habit"
             type="com.guilhermemagro.myhabits.data.Habit" />
@@ -18,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{() -> viewModel.setHabitDone(habit)}"
-        android:onLongClick="@{() -> viewModel.deleteHabit(habit)}">
+        android:onLongClick="@{() -> viewModel.showSnackbarDeleteHabit(habit)}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/status_image"

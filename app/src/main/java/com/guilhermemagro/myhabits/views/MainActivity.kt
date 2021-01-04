@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.guilhermemagro.myhabits.R
 import com.guilhermemagro.myhabits.adapters.HabitAdapter
-import com.guilhermemagro.myhabits.data.Habit
 import com.guilhermemagro.myhabits.data.HabitRepository
 import com.guilhermemagro.myhabits.databinding.ActivityMainBinding
 import com.guilhermemagro.myhabits.utilities.InjectorUtils
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         habitRepository = InjectorUtils.getHabitRepository(this)
         setupRecyclerView()
+        setupObserver()
     }
 
     private fun setupRecyclerView() {
@@ -42,6 +43,23 @@ class MainActivity : AppCompatActivity() {
             layoutManager = linearLayoutManager
             addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
             adapter = habitAdapter
+        }
+    }
+
+    private fun setupObserver() {
+        habitViewModel.habitToDelete.observe(this) { habit ->
+            habit?.let {
+                val snackbar = Snackbar.make(
+                    binding.fab,
+                    getString(R.string.delete_habit_text, habit.description),
+                    Snackbar.LENGTH_LONG)
+                    .setAction(R.string.delete_habit_action) {
+                        habitViewModel.deleteHabit(habit)
+                    }
+                snackbar.animationMode = Snackbar.ANIMATION_MODE_SLIDE
+                snackbar.show()
+                habitViewModel.onSnackbarDeleteHabitShown()
+            }
         }
     }
 

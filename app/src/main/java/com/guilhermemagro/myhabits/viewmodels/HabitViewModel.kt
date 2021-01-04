@@ -1,9 +1,6 @@
 package com.guilhermemagro.myhabits.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.guilhermemagro.myhabits.data.Habit
 import com.guilhermemagro.myhabits.data.HabitRepository
 import kotlinx.coroutines.launch
@@ -14,6 +11,23 @@ class HabitViewModel(
 
     val allHabits: LiveData<List<Habit>> = habitRepository.getHabits()
 
+    private val _habitToDelete = MutableLiveData<Habit?>()
+
+    val habitToDelete: LiveData<Habit?>
+        get() = _habitToDelete
+
+    fun onSnackbarDeleteHabitShown() {
+        _habitToDelete.value = null
+    }
+
+    fun showSnackbarDeleteHabit(habit: Habit) {
+        _habitToDelete.value = habit
+    }
+
+    fun deleteHabit(habit: Habit) = viewModelScope.launch {
+        habitRepository.deleteHabit(habit)
+    }
+
     fun insertHabit(habit: Habit) = viewModelScope.launch {
             habitRepository.insertHabit(habit)
     }
@@ -21,10 +35,6 @@ class HabitViewModel(
     fun setHabitDone(habit: Habit) = viewModelScope.launch {
         habit.isDone = !habit.isDone
         habitRepository.updateHabit(habit)
-    }
-
-    fun deleteHabit(habit: Habit) = viewModelScope.launch {
-        habitRepository.deleteHabit(habit)
     }
 }
 

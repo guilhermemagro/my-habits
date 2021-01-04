@@ -6,4 +6,9 @@
     <string name="add_habit_dscpt">Descrição do hábito</string>
     <string name="add_habit_confirm_button">Adicionar</string>
     <string name="add_habit_cancel_button">Cancelar</string>
+    <string name="add_habit_fab_dscpt">Add habit button</string>
+
+    <!-- Delete Habit Snackbar -->
+    <string name="delete_habit_text">Deseja deletar o hábito \"%1$s\"?</string>
+    <string name="delete_habit_action">Deletar</string>
 </resources>
