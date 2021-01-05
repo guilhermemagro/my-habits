@@ -49,15 +49,17 @@ class MainActivity : AppCompatActivity() {
     private fun setupObserver() {
         habitViewModel.habitToDelete.observe(this) { habit ->
             habit?.let {
-                val snackbar = Snackbar.make(
-                    binding.fab,
+                Snackbar.make(
+                    binding.coordinator,
                     getString(R.string.delete_habit_text, habit.description),
                     Snackbar.LENGTH_LONG)
                     .setAction(R.string.delete_habit_action) {
                         habitViewModel.deleteHabit(habit)
+                    }.apply {
+                        animationMode = Snackbar.ANIMATION_MODE_SLIDE
+                        anchorView = binding.fab
+                        show()
                     }
-                snackbar.animationMode = Snackbar.ANIMATION_MODE_SLIDE
-                snackbar.show()
                 habitViewModel.onSnackbarDeleteHabitShown()
             }
         }

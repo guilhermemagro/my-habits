@@ -16,12 +16,12 @@ class HabitViewModel(
     val habitToDelete: LiveData<Habit?>
         get() = _habitToDelete
 
-    fun onSnackbarDeleteHabitShown() {
-        _habitToDelete.value = null
-    }
-
     fun showSnackbarDeleteHabit(habit: Habit) {
         _habitToDelete.value = habit
+    }
+
+    fun onSnackbarDeleteHabitShown() {
+        _habitToDelete.value = null
     }
 
     fun deleteHabit(habit: Habit) = viewModelScope.launch {
