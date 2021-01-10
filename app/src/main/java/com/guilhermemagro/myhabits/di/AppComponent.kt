@@ -8,15 +8,13 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class, StoreModule::class])
+@Component(modules = [StoreModule::class])
 interface AppComponent {
 
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance applicationContext: Context): AppComponent
     }
-
-    fun habitRepository(): HabitRepository
 
     // Tells Dagger that MainActivity requests injection
     fun inject(mainActivity: MainActivity)
