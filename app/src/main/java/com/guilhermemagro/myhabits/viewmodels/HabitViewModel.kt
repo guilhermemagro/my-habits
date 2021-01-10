@@ -4,10 +4,9 @@ import androidx.lifecycle.*
 import com.guilhermemagro.myhabits.data.Habit
 import com.guilhermemagro.myhabits.data.HabitRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HabitViewModel(
-    private val habitRepository: HabitRepository
-): ViewModel() {
+class HabitViewModel(private val habitRepository: HabitRepository): ViewModel() {
 
     val allHabits: LiveData<List<Habit>> = habitRepository.getHabits()
 
@@ -38,11 +37,14 @@ class HabitViewModel(
     }
 }
 
-class HabitViewModelFactory(private val repository: HabitRepository) : ViewModelProvider.Factory {
+class HabitViewModelFactory @Inject constructor(
+    private val habitRepository: HabitRepository
+) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HabitViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return HabitViewModel(repository) as T
+            return HabitViewModel(habitRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -5,39 +5,48 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.guilhermemagro.myhabits.MyApplication
 import com.guilhermemagro.myhabits.R
 import com.guilhermemagro.myhabits.adapters.HabitAdapter
-import com.guilhermemagro.myhabits.data.HabitRepository
 import com.guilhermemagro.myhabits.databinding.ActivityMainBinding
-import com.guilhermemagro.myhabits.utilities.InjectorUtils
 import com.guilhermemagro.myhabits.viewmodels.HabitViewModel
 import com.guilhermemagro.myhabits.viewmodels.HabitViewModelFactory
 import com.guilhermemagro.myhabits.views.dialogs.AddHabitDialog
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var habitRepository: HabitRepository
+    @Inject
+    lateinit var habitViewModelFactory: HabitViewModelFactory
 
-    private val habitViewModel: HabitViewModel by viewModels {
-        HabitViewModelFactory(habitRepository)
-    }
+    private val habitViewModel by viewModels<HabitViewModel> { habitViewModelFactory }
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injectDagger()
         super.onCreate(savedInstanceState)
+        setupBinding()
+        setupRecyclerView()
+        setupSnackbar()
+    }
+
+    private fun injectDagger() {
+        (applicationContext as MyApplication).appComponent.inject(this)
+    }
+
+    private fun setupBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-        habitRepository = InjectorUtils.getHabitRepository(this)
-        setupRecyclerView()
-        setupObserver()
     }
 
     private fun setupRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(this)
-        val habitAdapter = HabitAdapter(this, habitViewModel.allHabits, habitViewModel)
+        val habitAdapter = HabitAdapter(this, habitViewModel)
         val recyclerView = binding.habitsRecyclerview
         with(recyclerView) {
             layoutManager = linearLayoutManager
@@ -46,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupObserver() {
+    private fun setupSnackbar() {
         habitViewModel.habitToDelete.observe(this) { habit ->
             habit?.let {
                 Snackbar.make(

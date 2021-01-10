@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.guilhermemagro.myhabits.utilities.DATABASE_NAME
 
-@Database(entities = arrayOf(Habit::class), version = 1)
+@Database(entities = [Habit::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun habitDao(): HabitDao
 

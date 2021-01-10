@@ -1,6 +1,10 @@
 package com.guilhermemagro.myhabits.data
 
-class HabitRepository private constructor(private val habitDao: HabitDao) {
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class HabitRepository @Inject constructor(private val habitDao: HabitDao) {
 
     fun getHabits() = habitDao.getAllHabits()
 
@@ -9,13 +13,4 @@ class HabitRepository private constructor(private val habitDao: HabitDao) {
     suspend fun updateHabit(habit: Habit) = habitDao.update(habit)
 
     suspend fun deleteHabit(habit: Habit) = habitDao.delete(habit)
-
-    companion object {
-        @Volatile private var instance: HabitRepository? = null
-
-        fun getInstance(habitDao: HabitDao) =
-            instance ?: synchronized(this) {
-                instance ?: HabitRepository(habitDao).also { instance = it }
-            }
-    }
 }

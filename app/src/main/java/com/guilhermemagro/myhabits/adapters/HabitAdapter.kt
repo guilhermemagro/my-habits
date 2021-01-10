@@ -12,12 +12,13 @@ import com.guilhermemagro.myhabits.viewmodels.HabitViewModel
 
 class HabitAdapter(
     lifecycle: LifecycleOwner,
-    private val allHabits: LiveData<List<Habit>>,
     private val viewModel: HabitViewModel,
 ) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
+    private var allHabits = viewModel.allHabits
+
     init {
-        allHabits.observe(lifecycle, Observer {
+        viewModel.allHabits.observe(lifecycle, Observer {
             notifyDataSetChanged()
         })
     }
