@@ -5,8 +5,6 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.guilhermemagro.myhabits.MyApplication
@@ -50,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = binding.habitsRecyclerview
         with(recyclerView) {
             layoutManager = linearLayoutManager
-            addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
             adapter = habitAdapter
         }
     }

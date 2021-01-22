@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="habit"
             type="com.guilhermemagro.myhabits.data.Habit" />
@@ -13,34 +14,46 @@
             type="com.guilhermemagro.myhabits.viewmodels.HabitViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginBottom="@dimen/margin_small"
         android:onClick="@{() -> viewModel.setHabitDone(habit)}"
-        android:onLongClick="@{() -> viewModel.showSnackbarDeleteHabit(habit)}">
+        android:onLongClick="@{() -> viewModel.showSnackbarDeleteHabit(habit)}"
+        app:cardElevation="4dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/status_image"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_margin="@dimen/margin_normal"
-            android:src="@{habit.done ? @drawable/ic_done : @drawable/ic_undone}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_done" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/habit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_large"
-            android:text="@{habit.description}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            app:layout_constraintBottom_toBottomOf="@id/status_image"
-            app:layout_constraintStart_toEndOf="@+id/status_image"
-            app:layout_constraintTop_toTopOf="@+id/status_image"
-            tools:text="Escovar os dentes" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/status_image"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="@dimen/margin_normal"
+                android:src="@{habit.done ? @drawable/ic_done : @drawable/ic_undone}"
+                app:layout_constraintBottom_toBottomOf="@+id/card_view"
+                app:layout_constraintStart_toStartOf="@+id/card_view"
+                app:layout_constraintTop_toTopOf="@+id/card_view"
+                tools:src="@drawable/ic_done" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/habit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:text="@{habit.description}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                app:layout_constraintBottom_toBottomOf="@id/status_image"
+                app:layout_constraintStart_toEndOf="@+id/status_image"
+                app:layout_constraintTop_toTopOf="@+id/status_image"
+                tools:text="Escovar os dentes" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

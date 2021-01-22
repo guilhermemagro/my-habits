@@ -1,8 +1,13 @@
 package com.guilhermemagro.myhabits.views.dialogs
 
+import android.app.ActionBar
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.DialogFragment
 import com.guilhermemagro.myhabits.R
@@ -14,7 +19,7 @@ class AddHabitDialog (private val viewModel: HabitViewModel) : DialogFragment() 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-            val inflater = requireActivity().layoutInflater
+            val inflater = it.layoutInflater
             val builder = AlertDialog.Builder(it)
             builder.setView(inflater.inflate(R.layout.dialog_add_habit, null))
                 .setTitle(R.string.add_habit_title)
@@ -32,7 +37,9 @@ class AddHabitDialog (private val viewModel: HabitViewModel) : DialogFragment() 
                 .setNegativeButton(R.string.add_habit_cancel_button) { dialog, id ->
                     dialog.cancel()
                 }
-            builder.create()
+            builder.create().apply {
+                window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+            }
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 }
