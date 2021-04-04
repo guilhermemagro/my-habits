@@ -23,7 +23,7 @@ class AddHabitDialog (private val viewModel: HabitViewModel) : DialogFragment() 
             val builder = AlertDialog.Builder(it)
             builder.setView(inflater.inflate(R.layout.dialog_add_habit, null))
                 .setTitle(R.string.add_habit_title)
-                .setPositiveButton(R.string.add_habit_confirm_button) { dialog, id ->
+                .setPositiveButton(R.string.add_habit_confirm_button) { dialog, _ ->
                     val addHabitDialog = dialog as Dialog
                     val habitDescriptionEdt = addHabitDialog
                         .findViewById<AppCompatEditText>(R.id.add_habit_edt)
@@ -34,7 +34,7 @@ class AddHabitDialog (private val viewModel: HabitViewModel) : DialogFragment() 
                         viewModel.insertHabit(Habit(habitDescription))
                     }
                 }
-                .setNegativeButton(R.string.add_habit_cancel_button) { dialog, id ->
+                .setNegativeButton(R.string.add_habit_cancel_button) { dialog, _ ->
                     dialog.cancel()
                 }
             builder.create().apply {

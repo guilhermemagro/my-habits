@@ -3,7 +3,6 @@ package com.guilhermemagro.myhabits.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.guilhermemagro.myhabits.data.Habit
@@ -44,6 +43,7 @@ class HabitAdapter(
         fun bind(habit: Habit) {
             binding.habit = habit
             binding.viewModel = viewModel
+            binding.imageviewStatusImage.isSelected = habit.isDone
             binding.executePendingBindings()
         }
     }
