@@ -11,7 +11,6 @@ class HabitViewModel(private val habitRepository: HabitRepository): ViewModel() 
     val allHabits: LiveData<List<Habit>> = habitRepository.getHabits()
 
     private val _habitToDelete = MutableLiveData<Habit?>()
-
     val habitToDelete: LiveData<Habit?>
         get() = _habitToDelete
 
@@ -28,7 +27,7 @@ class HabitViewModel(private val habitRepository: HabitRepository): ViewModel() 
     }
 
     fun insertHabit(habit: Habit) = viewModelScope.launch {
-            habitRepository.insertHabit(habit)
+        habitRepository.insertHabit(habit)
     }
 
     fun setHabitDone(habit: Habit) = viewModelScope.launch {
