@@ -17,7 +17,7 @@ class HabitAdapter(
     private var allHabits = viewModel.allHabits
 
     init {
-        viewModel.allHabits.observe(lifecycle, Observer {
+        viewModel.allHabits.observe(lifecycle, {
             notifyDataSetChanged()
         })
     }

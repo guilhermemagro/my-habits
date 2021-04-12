@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/done"
         android:drawable="@drawable/ic_done"
         android:state_selected="true" />
-
     <item
         android:id="@+id/undone"
         android:drawable="@drawable/ic_undone" />
-
     <transition
         android:drawable="@drawable/avd_done_to_undone"
         android:fromId="@id/done"
         android:toId="@id/undone" />
-
     <transition
         android:drawable="@drawable/avd_undone_to_undone"
         android:fromId="@id/undone"
         android:toId="@id/done" />
-
 </animated-selector>

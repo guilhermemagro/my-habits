@@ -30,7 +30,7 @@ class HabitViewModel(private val habitRepository: HabitRepository): ViewModel() 
         habitRepository.insertHabit(habit)
     }
 
-    fun setHabitDone(habit: Habit) = viewModelScope.launch {
+    fun toggleHabitState(habit: Habit) = viewModelScope.launch {
         habit.isDone = !habit.isDone
         habitRepository.updateHabit(habit)
     }

@@ -21,7 +21,7 @@
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginBottom="@dimen/margin_small"
-        android:onClick="@{() -> viewModel.setHabitDone(habit)}"
+        android:onClick="@{() -> viewModel.toggleHabitState(habit)}"
         android:onLongClick="@{() -> viewModel.showSnackbarDeleteHabit(habit)}"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp">
@@ -37,9 +37,9 @@
                 android:layout_height="35dp"
                 android:layout_margin="@dimen/margin_normal"
                 android:src="@drawable/aslv_status"
-                app:layout_constraintBottom_toBottomOf="@+id/card_view"
-                app:layout_constraintStart_toStartOf="@+id/card_view"
-                app:layout_constraintTop_toTopOf="@+id/card_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_done" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -52,7 +52,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/imageview_status_image"
                 app:layout_constraintStart_toEndOf="@+id/imageview_status_image"
                 app:layout_constraintTop_toTopOf="@+id/imageview_status_image"
-                tools:text="Escovar os dentes" />
+                tools:text="Exercise" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
