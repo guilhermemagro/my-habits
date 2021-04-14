@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">My Habits</string>
 
+    <!--  Toolbar  -->
+    <string name="toolbar_reset_habits">Resetar hábitos</string>
+
     <!-- Add Habit Dialog -->
     <string name="add_habit_title">Adicionar hábito</string>
     <string name="add_habit_dscpt">Descrição do hábito</string>

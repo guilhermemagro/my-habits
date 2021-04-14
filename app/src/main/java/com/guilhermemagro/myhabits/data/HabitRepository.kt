@@ -8,6 +8,8 @@ class HabitRepository @Inject constructor(private val habitDao: HabitDao) {
 
     fun getHabits() = habitDao.getAllHabits()
 
+    suspend fun resetAllHabits() = habitDao.resetAllHabits()
+
     suspend fun insertHabit(habit: Habit) = habitDao.insert(habit)
 
     suspend fun updateHabit(habit: Habit) = habitDao.update(habit)

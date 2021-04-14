@@ -34,6 +34,10 @@ class HabitViewModel(private val habitRepository: HabitRepository): ViewModel() 
         habit.isDone = !habit.isDone
         habitRepository.updateHabit(habit)
     }
+
+    fun resetHabits() = viewModelScope.launch {
+        habitRepository.resetAllHabits()
+    }
 }
 
 class HabitViewModelFactory @Inject constructor(

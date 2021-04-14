@@ -8,6 +8,9 @@ interface HabitDao {
     @Query("SELECT * FROM habit")
     fun getAllHabits(): LiveData<List<Habit>>
 
+    @Query("UPDATE habit SET is_done = 0")
+    suspend fun resetAllHabits()
+
     @Insert
     suspend fun insert(habit: Habit)
 

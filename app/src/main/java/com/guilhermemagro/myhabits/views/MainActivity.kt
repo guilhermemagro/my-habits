@@ -1,6 +1,8 @@
 package com.guilhermemagro.myhabits.views
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         injectDagger()
         super.onCreate(savedInstanceState)
         setupBinding()
+        setSupportActionBar(binding.toolbar)
         setupRecyclerView()
         setupSnackbar()
     }
@@ -73,5 +76,18 @@ class MainActivity : AppCompatActivity() {
 
     fun showAddHabitDialog(view: View) {
         AddHabitDialog(habitViewModel).show(supportFragmentManager, "addHabitDialog")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+        R.id.action_reset -> {
+            habitViewModel.resetHabits()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 }

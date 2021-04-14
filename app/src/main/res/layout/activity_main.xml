@@ -10,28 +10,44 @@
             type="com.guilhermemagro.myhabits.viewmodels.HabitViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.MainActivity">
+        android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/habits_recyclerview"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            tools:listitem="@layout/item_habit" />
+            tools:context=".views.MainActivity">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/margin_large"
-            android:contentDescription="@string/add_habit_fab_dscpt"
-            android:onClick="showAddHabitDialog"
-            android:src="@drawable/ic_add" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/habits_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                tools:listitem="@layout/item_habit" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/margin_large"
+                android:contentDescription="@string/add_habit_fab_dscpt"
+                android:onClick="showAddHabitDialog"
+                android:src="@drawable/ic_add" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </layout>
