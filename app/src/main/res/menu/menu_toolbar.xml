@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/toolbar_edit_habits"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_reset"
         android:icon="@drawable/ic_refresh"
         android:title="@string/toolbar_reset_habits"

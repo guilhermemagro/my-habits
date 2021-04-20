@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -84,6 +85,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+        R.id.action_edit -> {
+            Toast.makeText(this, "Editar hábitos", Toast.LENGTH_SHORT).show()
+            true
+        }
         R.id.action_reset -> {
             habitViewModel.resetHabits()
             true

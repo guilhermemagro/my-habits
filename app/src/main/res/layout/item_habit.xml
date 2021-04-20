@@ -49,10 +49,39 @@
                 android:layout_marginStart="@dimen/margin_large"
                 android:text="@{habit.description}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                app:layout_constraintBottom_toBottomOf="@id/imageview_status_image"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageview_status_image"
-                app:layout_constraintTop_toTopOf="@+id/imageview_status_image"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Exercise" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_item_habit_arrow_up"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginVertical="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imageview_item_habit_arrow_down"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow_drop_up" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_item_habit_arrow_down"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginVertical="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow_drop_down" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

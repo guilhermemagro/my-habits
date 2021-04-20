@@ -2,6 +2,7 @@
     <string name="app_name">My Habits</string>
 
     <!--  Toolbar  -->
+    <string name="toolbar_edit_habits">Editar hábitos</string>
     <string name="toolbar_reset_habits">Resetar hábitos</string>
 
     <!-- Add Habit Dialog -->
