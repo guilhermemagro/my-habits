@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
         R.id.action_edit -> {
-            Toast.makeText(this, "Editar hábitos", Toast.LENGTH_SHORT).show()
+            habitViewModel.toggleEditMode()
             true
         }
         R.id.action_reset -> {

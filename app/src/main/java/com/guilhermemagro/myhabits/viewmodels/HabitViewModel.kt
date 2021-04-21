@@ -14,6 +14,14 @@ class HabitViewModel(private val habitRepository: HabitRepository): ViewModel() 
     val habitToDelete: LiveData<Habit?>
         get() = _habitToDelete
 
+    private val _isOnEditMode = MutableLiveData(false)
+    val isOnEditMode: LiveData<Boolean>
+        get() = _isOnEditMode
+
+    fun toggleEditMode() {
+        _isOnEditMode.value = (isOnEditMode.value != true)
+    }
+
     fun showSnackbarDeleteHabit(habit: Habit) {
         _habitToDelete.value = habit
     }

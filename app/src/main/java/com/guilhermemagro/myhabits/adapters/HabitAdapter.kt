@@ -16,6 +16,10 @@ class HabitAdapter(
     private var allHabits = viewModel.allHabits
 
     init {
+        viewModel.isOnEditMode.observe(lifecycle, {
+            notifyDataSetChanged()
+        })
+
         viewModel.allHabits.observe(lifecycle, {
             notifyDataSetChanged()
         })
