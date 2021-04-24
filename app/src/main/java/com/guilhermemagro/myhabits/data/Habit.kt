@@ -8,7 +8,8 @@ import androidx.room.PrimaryKey
 data class Habit (
     @PrimaryKey(autoGenerate = true) val id: Int,
     val description: String,
-    @ColumnInfo(name = "is_done") var isDone: Boolean
+    @ColumnInfo(name = "is_done") var isDone: Boolean,
+    var position: Int
 ) {
-    constructor(habit: String) : this(0, habit, false)
+    constructor(habit: String, position: Int) : this(0, habit, false, position)
 }

@@ -1,7 +1,7 @@
 ## TODO LIST
 
 - App icon
-- A way to change habits position (maybe adding a button on toolbar to enable edition)
+- Animation on item changing position
 - Notification to show/set next habit
 - Unit tests
 - Instrumented unit tests

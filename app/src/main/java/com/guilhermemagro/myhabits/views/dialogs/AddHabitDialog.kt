@@ -1,12 +1,9 @@
 package com.guilhermemagro.myhabits.views.dialogs
 
-import android.app.ActionBar
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.DialogFragment
@@ -17,6 +14,7 @@ import java.lang.IllegalStateException
 
 class AddHabitDialog (private val viewModel: HabitViewModel) : DialogFragment() {
 
+    @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val inflater = it.layoutInflater
@@ -31,7 +29,8 @@ class AddHabitDialog (private val viewModel: HabitViewModel) : DialogFragment() 
                     if (habitDescription == "") {
                         addHabitDialog.cancel()
                     } else {
-                        viewModel.insertHabit(Habit(habitDescription))
+                        val lastPosition = viewModel.habitsLiveData.value?.size ?: 0
+                        viewModel.insertHabit(Habit(habitDescription, lastPosition))
                     }
                 }
                 .setNegativeButton(R.string.add_habit_cancel_button) { dialog, _ ->

@@ -13,14 +13,14 @@ class HabitAdapter(
     private val viewModel: HabitViewModel,
 ) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
-    private var allHabits = viewModel.allHabits
+    private var habitsList = viewModel.habitsLiveData
 
     init {
         viewModel.isOnEditMode.observe(lifecycle, {
             notifyDataSetChanged()
         })
 
-        viewModel.allHabits.observe(lifecycle, {
+        viewModel.habitsLiveData.observe(lifecycle, {
             notifyDataSetChanged()
         })
     }
@@ -32,13 +32,13 @@ class HabitAdapter(
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
-        val habit = allHabits.value?.get(position)
+        val habit = habitsList.value?.get(position)
             ?: throw IllegalStateException("Null HabitList not expected")
         holder.bind(habit)
     }
 
     override fun getItemCount(): Int {
-        return allHabits.value?.size ?: 0
+        return habitsList.value?.size ?: 0
     }
 
     inner class HabitViewHolder(private var binding: ItemHabitBinding, private val viewModel: HabitViewModel)

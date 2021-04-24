@@ -6,9 +6,9 @@ import com.guilhermemagro.myhabits.data.HabitRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HabitViewModel(private val habitRepository: HabitRepository): ViewModel() {
+class HabitViewModel(private val repository: HabitRepository): ViewModel() {
 
-    val allHabits: LiveData<List<Habit>> = habitRepository.getHabits()
+    val habitsLiveData: LiveData<List<Habit>> = repository.getHabits()
 
     private val _habitToDelete = MutableLiveData<Habit?>()
     val habitToDelete: LiveData<Habit?>
@@ -31,20 +31,52 @@ class HabitViewModel(private val habitRepository: HabitRepository): ViewModel() 
     }
 
     fun deleteHabit(habit: Habit) = viewModelScope.launch {
-        habitRepository.deleteHabit(habit)
+        habitsLiveData.value?.let { habitsLiveData ->
+            val habitsList = habitsLiveData.toMutableList()
+            habitsList.map { item -> if (item.position > habit.position) item.position-- }
+            habitsList.remove(habit)
+            repository.deleteHabit(habit)
+            repository.updateAll(habitsList)
+        }
     }
 
     fun insertHabit(habit: Habit) = viewModelScope.launch {
-        habitRepository.insertHabit(habit)
+        repository.insertHabit(habit)
     }
 
     fun toggleHabitState(habit: Habit) = viewModelScope.launch {
         habit.isDone = !habit.isDone
-        habitRepository.updateHabit(habit)
+        repository.updateHabit(habit)
     }
 
     fun resetHabits() = viewModelScope.launch {
-        habitRepository.resetAllHabits()
+        repository.resetAllHabits()
+    }
+
+    fun moveItemUp(habitMovedUp: Habit) = viewModelScope.launch {
+        habitsLiveData.value?.let { habits ->
+            val habitMovedDownIndex = habits.indexOf(habitMovedUp) - 1
+            val habitMovedDown = habits[habitMovedDownIndex]
+            moveHabitsAndUpdate(habitMovedDown, habitMovedUp)
+        }
+    }
+
+    fun moveItemDown(habitMovedDown: Habit) = viewModelScope.launch {
+        habitsLiveData.value?.let { habits ->
+            val habitMovedDownIndex = habits.indexOf(habitMovedDown) + 1
+            val habitMovedUp = habits[habitMovedDownIndex]
+            moveHabitsAndUpdate(habitMovedDown, habitMovedUp)
+        }
+    }
+
+    private suspend fun moveHabitsAndUpdate(
+        habitMovedDown: Habit,
+        habitMovedUp: Habit
+    ) {
+        habitMovedDown.position++
+        habitMovedUp.position--
+        repository.updateHabit(habitMovedDown)
+        repository.updateHabit(habitMovedUp)
     }
 }
 

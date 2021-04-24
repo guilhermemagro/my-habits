@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface HabitDao {
-    @Query("SELECT * FROM habit")
+    @Query("SELECT * FROM habit ORDER BY position ASC")
     fun getAllHabits(): LiveData<List<Habit>>
 
     @Query("UPDATE habit SET is_done = 0")
@@ -13,6 +13,9 @@ interface HabitDao {
 
     @Insert
     suspend fun insert(habit: Habit)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateAll(habits: List<Habit>)
 
     @Update
     suspend fun update(habit: Habit)
