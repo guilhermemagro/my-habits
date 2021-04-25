@@ -18,8 +18,14 @@ interface HabitDao {
     suspend fun updateAll(habits: List<Habit>)
 
     @Update
-    suspend fun update(habit: Habit)
+    suspend fun updateHabits(vararg habit: Habit)
 
     @Delete
     suspend fun delete(habit: Habit)
+
+    @Transaction
+    suspend fun deleteAndUpdateAll(habitToBeDeleted: Habit, habitsToBeUpdated: List<Habit>) {
+        delete(habitToBeDeleted)
+        updateAll(habitsToBeUpdated)
+    }
 }

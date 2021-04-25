@@ -35,8 +35,7 @@ class HabitViewModel(private val repository: HabitRepository): ViewModel() {
             val habitsList = habitsLiveData.toMutableList()
             habitsList.map { item -> if (item.position > habit.position) item.position-- }
             habitsList.remove(habit)
-            repository.deleteHabit(habit)
-            repository.updateAll(habitsList)
+            repository.deleteAndUpdateAll(habitToBeDeleted = habit, habitsToBeUpdated = habitsList)
         }
     }
 
@@ -46,7 +45,7 @@ class HabitViewModel(private val repository: HabitRepository): ViewModel() {
 
     fun toggleHabitState(habit: Habit) = viewModelScope.launch {
         habit.isDone = !habit.isDone
-        repository.updateHabit(habit)
+        repository.updateHabits(habit)
     }
 
     fun resetHabits() = viewModelScope.launch {
@@ -75,8 +74,7 @@ class HabitViewModel(private val repository: HabitRepository): ViewModel() {
     ) {
         habitMovedDown.position++
         habitMovedUp.position--
-        repository.updateHabit(habitMovedDown)
-        repository.updateHabit(habitMovedUp)
+        repository.updateHabits(habitMovedDown, habitMovedUp)
     }
 }
 

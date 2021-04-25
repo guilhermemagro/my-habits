@@ -1,5 +1,7 @@
 package com.guilhermemagro.myhabits.adapters
 
+import android.util.Log
+import android.util.Log.DEBUG
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -13,25 +15,33 @@ class HabitAdapter(
     private val viewModel: HabitViewModel,
 ) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
+    companion object {
+        private const val TAG = "HABIT_ADAPTER"
+    }
+
     private var habitsList = viewModel.habitsLiveData
 
     init {
         viewModel.isOnEditMode.observe(lifecycle, {
+            Log.println(DEBUG, TAG, "- notifyDataSetChanged() -> isOnEditMode")
             notifyDataSetChanged()
         })
 
         viewModel.habitsLiveData.observe(lifecycle, {
+            Log.println(DEBUG, TAG, "- notifyDataSetChanged() -> habitsLiveData")
             notifyDataSetChanged()
         })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
+        Log.println(DEBUG, TAG, "--- onCreateViewHolder()")
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemBinding = ItemHabitBinding.inflate(layoutInflater, parent, false)
         return HabitViewHolder(itemBinding, viewModel)
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
+        Log.println(DEBUG, TAG, "--- onBindViewHolder(position: $position)")
         val habit = habitsList.value?.get(position)
             ?: throw IllegalStateException("Null HabitList not expected")
         holder.bind(habit)
