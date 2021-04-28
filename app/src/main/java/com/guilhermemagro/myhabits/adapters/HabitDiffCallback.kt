@@ -3,25 +3,12 @@ package com.guilhermemagro.myhabits.adapters
 import androidx.recyclerview.widget.DiffUtil
 import com.guilhermemagro.myhabits.data.Habit
 
-class HabitDiffCallback(
-    var oldList: List<Habit>,
-    var newList: List<Habit>
-): DiffUtil.Callback() {
-
-    override fun getOldListSize() = oldList.size
-
-
-    override fun getNewListSize() = newList.size
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].id == newList[newItemPosition].id
+class HabitDiffCallback(): DiffUtil.ItemCallback<Habit>() {
+    override fun areItemsTheSame(oldItem: Habit, newItem: Habit): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return true
-    }
-
-    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-        return super.getChangePayload(oldItemPosition, newItemPosition)
+    override fun areContentsTheSame(oldItem: Habit, newItem: Habit): Boolean {
+        return oldItem == newItem
     }
 }
