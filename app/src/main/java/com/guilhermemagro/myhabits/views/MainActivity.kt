@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(this)
-        val habitAdapter = HabitAdapter(this, habitViewModel).apply { setHasStableIds(true) }
+        val habitAdapter = HabitAdapter(this, habitViewModel)
         val recyclerView = binding.habitsRecyclerview
         with(recyclerView) {
             layoutManager = linearLayoutManager

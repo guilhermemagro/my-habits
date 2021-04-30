@@ -8,6 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.guilhermemagro.myhabits.data.Habit
 import com.guilhermemagro.myhabits.databinding.ItemHabitBinding
+import com.guilhermemagro.myhabits.utilities.ActionType.NONE
 import com.guilhermemagro.myhabits.viewmodels.HabitViewModel
 
 class HabitAdapter(
@@ -19,17 +20,22 @@ class HabitAdapter(
         private const val TAG = "HABIT_ADAPTER"
     }
 
-    private var habitsList = viewModel.habitsLiveData
+    private var habitsList: List<Habit> = listOf()
 
     init {
+        setHasStableIds(true)
         viewModel.isOnEditMode.observe(lifecycle, {
             Log.println(DEBUG, TAG, "- notifyDataSetChanged() -> isOnEditMode")
             notifyDataSetChanged()
         })
 
-        viewModel.habitsLiveData.observe(lifecycle, {
+        viewModel.habitsLiveData.observe(lifecycle, { newHabitsList ->
             Log.println(DEBUG, TAG, "- notifyDataSetChanged() -> habitsLiveData")
-            notifyDataSetChanged()
+            val adapterHelper = AdapterMovementHandler(this)
+            val oldList = habitsList.toMutableList()
+            adapterHelper.itemsChanged(oldList, newHabitsList, viewModel.lastAction)
+            habitsList = newHabitsList.toMutableList()
+            if (viewModel.lastAction == NONE) notifyDataSetChanged()
         })
     }
 
@@ -42,14 +48,13 @@ class HabitAdapter(
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
         Log.println(DEBUG, TAG, "--- onBindViewHolder(position: $position)")
-        val habit = habitsList.value?.get(position)
-            ?: throw IllegalStateException("Null HabitList not expected")
+        val habit = habitsList[position]
         holder.bind(habit)
     }
 
-    override fun getItemCount(): Int {
-        return habitsList.value?.size ?: 0
-    }
+    override fun getItemCount() = habitsList.size
+
+    override fun getItemId(position: Int) = habitsList[position].id.toLong()
 
     inner class HabitViewHolder(private var binding: ItemHabitBinding, private val viewModel: HabitViewModel)
         : RecyclerView.ViewHolder(binding.root) {

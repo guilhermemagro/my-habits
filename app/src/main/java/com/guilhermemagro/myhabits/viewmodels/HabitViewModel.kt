@@ -3,12 +3,16 @@ package com.guilhermemagro.myhabits.viewmodels
 import androidx.lifecycle.*
 import com.guilhermemagro.myhabits.data.Habit
 import com.guilhermemagro.myhabits.data.HabitRepository
+import com.guilhermemagro.myhabits.utilities.ActionType
+import com.guilhermemagro.myhabits.utilities.ActionType.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HabitViewModel(private val repository: HabitRepository): ViewModel() {
 
     val habitsLiveData: LiveData<List<Habit>> = repository.getHabits()
+
+    var lastAction: ActionType = NONE
 
     private val _habitToDelete = MutableLiveData<Habit?>()
     val habitToDelete: LiveData<Habit?>
@@ -31,6 +35,7 @@ class HabitViewModel(private val repository: HabitRepository): ViewModel() {
     }
 
     fun deleteHabit(habit: Habit) = viewModelScope.launch {
+        lastAction = DELETED
         habitsLiveData.value?.let { habitsLiveData ->
             val habitsList = habitsLiveData.toMutableList()
             habitsList.map { item -> if (item.position > habit.position) item.position-- }
@@ -40,15 +45,18 @@ class HabitViewModel(private val repository: HabitRepository): ViewModel() {
     }
 
     fun insertHabit(habit: Habit) = viewModelScope.launch {
+        lastAction = ADDED
         repository.insertHabit(habit)
     }
 
     fun toggleHabitState(habit: Habit) = viewModelScope.launch {
+        lastAction = CLICKED
         habit.isDone = !habit.isDone
         repository.updateHabits(habit)
     }
 
     fun resetHabits() = viewModelScope.launch {
+        lastAction = RESET
         repository.resetAllHabits()
     }
 
@@ -72,6 +80,7 @@ class HabitViewModel(private val repository: HabitRepository): ViewModel() {
         habitMovedDown: Habit,
         habitMovedUp: Habit
     ) {
+        lastAction = MOVED
         habitMovedDown.position++
         habitMovedUp.position--
         repository.updateHabits(habitMovedDown, habitMovedUp)
