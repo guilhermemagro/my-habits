@@ -6,5 +6,5 @@ enum class ActionType {
     DELETED,
     MOVED,
     RESET,
-    NONE
+    INITIALIZED
 }

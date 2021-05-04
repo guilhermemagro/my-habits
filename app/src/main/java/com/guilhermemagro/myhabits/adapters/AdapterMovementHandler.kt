@@ -14,7 +14,7 @@ class AdapterMovementHandler(private val adapter: RecyclerView.Adapter<*>) {
             DELETED -> onItemDeleted(oldList, newList)
             MOVED -> onItemMoved(oldList, newList)
             RESET -> onItemReset()
-            NONE -> return
+            INITIALIZED -> onInitialize()
         }
     }
 
@@ -31,10 +31,11 @@ class AdapterMovementHandler(private val adapter: RecyclerView.Adapter<*>) {
     }
 
     private fun onItemDeleted(oldList: List<*>, newList: List<*>) {
-        val indexOfFirstDifferent = newList.getIndexOfFirstDifferent(oldList)
+        val indexOfFirstDifferent = oldList.getIndexOfFirstDifferent(newList)
         indexOfFirstDifferent?.let {
             adapter.notifyItemRemoved(indexOfFirstDifferent)
-        } ?: adapter.notifyItemRemoved(oldList.lastIndex)
+            if (newList.size > 1) adapter.notifyItemChanged(indexOfFirstDifferent - 1)
+        }
     }
 
     private fun onItemMoved(oldList: List<*>, newList: List<*>) {
@@ -45,6 +46,10 @@ class AdapterMovementHandler(private val adapter: RecyclerView.Adapter<*>) {
     }
 
     private fun onItemReset() {
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun onInitialize() {
         adapter.notifyDataSetChanged()
     }
 }

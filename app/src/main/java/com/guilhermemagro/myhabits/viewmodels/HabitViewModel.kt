@@ -12,7 +12,7 @@ class HabitViewModel(private val repository: HabitRepository): ViewModel() {
 
     val habitsLiveData: LiveData<List<Habit>> = repository.getHabits()
 
-    var lastAction: ActionType = NONE
+    var lastAction: ActionType = INITIALIZED
 
     private val _habitToDelete = MutableLiveData<Habit?>()
     val habitToDelete: LiveData<Habit?>

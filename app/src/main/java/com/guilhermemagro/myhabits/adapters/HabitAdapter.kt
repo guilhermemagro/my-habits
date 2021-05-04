@@ -8,7 +8,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.guilhermemagro.myhabits.data.Habit
 import com.guilhermemagro.myhabits.databinding.ItemHabitBinding
-import com.guilhermemagro.myhabits.utilities.ActionType.NONE
 import com.guilhermemagro.myhabits.viewmodels.HabitViewModel
 
 class HabitAdapter(
@@ -35,7 +34,6 @@ class HabitAdapter(
             val oldList = habitsList.toMutableList()
             adapterHelper.itemsChanged(oldList, newHabitsList, viewModel.lastAction)
             habitsList = newHabitsList.toMutableList()
-            if (viewModel.lastAction == NONE) notifyDataSetChanged()
         })
     }
 
