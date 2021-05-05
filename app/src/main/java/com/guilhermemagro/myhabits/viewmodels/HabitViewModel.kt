@@ -51,9 +51,15 @@ class HabitViewModel(private val repository: HabitRepository): ViewModel() {
 
     fun toggleHabitState(habit: Habit) = viewModelScope.launch {
         lastAction = CLICKED
-        habit.isDone = !habit.isDone
-        repository.updateHabits(habit)
+        when (habit.isDone) {
+            true -> setHabitUndone(habit.id)
+            false -> setHabitDone(habit.id)
+        }
     }
+
+    private suspend fun setHabitDone(id: Int) = repository.setHabitDone(id)
+
+    private suspend fun setHabitUndone(id: Int) = repository.setHabitUndone(id)
 
     fun resetHabits() = viewModelScope.launch {
         lastAction = RESET

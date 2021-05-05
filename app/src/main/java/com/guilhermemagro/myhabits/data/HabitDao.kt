@@ -11,6 +11,12 @@ interface HabitDao {
     @Query("UPDATE habit SET is_done = 0")
     suspend fun resetAllHabits()
 
+    @Query("UPDATE habit SET is_done = 1 WHERE id = :id")
+    suspend fun setHabitDone(id: Int)
+
+    @Query("UPDATE habit SET is_done = 0 WHERE id = :id")
+    suspend fun setHabitUndone(id: Int)
+
     @Insert
     suspend fun insert(habit: Habit)
 

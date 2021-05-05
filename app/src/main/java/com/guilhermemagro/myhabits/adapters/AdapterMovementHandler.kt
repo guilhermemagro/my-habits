@@ -26,7 +26,8 @@ class AdapterMovementHandler(private val adapter: RecyclerView.Adapter<*>) {
     private fun onItemClicked(oldList: List<*>, newList: List<*>) {
         val indexOfFirstDifferent = oldList.getIndexOfFirstDifferent(newList)
         indexOfFirstDifferent?.let {
-            adapter.notifyItemChanged(it)
+            adapter.notifyItemRemoved(it)
+            adapter.notifyItemInserted(it)
         }
     }
 

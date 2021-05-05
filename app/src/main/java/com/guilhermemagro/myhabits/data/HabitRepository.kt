@@ -10,6 +10,10 @@ class HabitRepository @Inject constructor(private val habitDao: HabitDao) {
 
     suspend fun resetAllHabits() = habitDao.resetAllHabits()
 
+    suspend fun setHabitDone(id: Int) = habitDao.setHabitDone(id)
+
+    suspend fun setHabitUndone(id: Int) = habitDao.setHabitUndone(id)
+
     suspend fun insertHabit(habit: Habit) = habitDao.insert(habit)
 
     suspend fun updateHabits(vararg habit: Habit) = habitDao.updateHabits(*habit)

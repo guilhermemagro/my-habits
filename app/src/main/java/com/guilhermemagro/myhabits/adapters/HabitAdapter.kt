@@ -16,36 +16,37 @@ class HabitAdapter(
 ) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
     companion object {
-        private const val TAG = "HABIT_ADAPTER"
+        private const val LOG_TAG = "HABIT_ADAPTER"
     }
 
-    private var habitsList: List<Habit> = listOf()
+    private var habitsList: MutableList<Habit> = mutableListOf()
 
     init {
         setHasStableIds(true)
         viewModel.isOnEditMode.observe(lifecycle, {
-            Log.println(DEBUG, TAG, "- notifyDataSetChanged() -> isOnEditMode")
+            Log.println(DEBUG, LOG_TAG, "- notifyDataSetChanged() -> isOnEditMode")
             notifyDataSetChanged()
         })
 
-        viewModel.habitsLiveData.observe(lifecycle, { newHabitsList ->
-            Log.println(DEBUG, TAG, "- notifyDataSetChanged() -> habitsLiveData")
+        viewModel.habitsLiveData.observe(lifecycle, { habits ->
+            Log.println(DEBUG, LOG_TAG, "- habitsLiveData changed")
             val adapterHelper = AdapterMovementHandler(this)
-            val oldList = habitsList.toMutableList()
-            adapterHelper.itemsChanged(oldList, newHabitsList, viewModel.lastAction)
-            habitsList = newHabitsList.toMutableList()
+            val newHabitsList = habits.toMutableList()
+            val oldHabitList = habitsList.toMutableList()
+            habitsList = newHabitsList
+            adapterHelper.itemsChanged(oldHabitList, newHabitsList, viewModel.lastAction)
         })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
-        Log.println(DEBUG, TAG, "--- onCreateViewHolder()")
+        Log.println(DEBUG, LOG_TAG, "--- onCreateViewHolder()")
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemBinding = ItemHabitBinding.inflate(layoutInflater, parent, false)
         return HabitViewHolder(itemBinding, viewModel)
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
-        Log.println(DEBUG, TAG, "--- onBindViewHolder(position: $position)")
+        Log.println(DEBUG, LOG_TAG, "--- onBindViewHolder(position: $position)")
         val habit = habitsList[position]
         holder.bind(habit)
     }
