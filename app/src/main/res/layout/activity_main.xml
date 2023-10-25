@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.guilhermemagro.myhabits.viewmodels.HabitViewModel" />
@@ -35,6 +34,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:clipToPadding="false"
+                android:paddingBottom="84dp"
+                android:scrollbarStyle="outsideOverlay"
                 tools:listitem="@layout/item_habit" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
